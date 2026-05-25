@@ -1,0 +1,4 @@
+node_modules/
+package-lock.json
+dumps.db
+debug_events.json

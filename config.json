@@ -1,0 +1,21 @@
+{
+  "port": 3141,
+  "host": "0.0.0.0",
+  "apiKey": "",
+  "modelRefreshSec": 300,
+  "sessionTimeoutSec": 900,
+  "defaultSystemPrompt": "You are a helpful, thoughtful AI assistant. Provide detailed, accurate responses. When asked a question, give comprehensive answers rather than one-word replies.",
+  "maxReasoningBudgetTokens": 4096,
+  "toolDefaultModel": "gpt-5.5",
+  "pollingIntervalMs": 3000,
+  "pollingMaxAttempts": 120,
+  "logLevel": "info",
+  "anthropicModelMap": {
+    "claude-sonnet-4-5-20250929": "gpt-5.5",
+    "claude-sonnet-4-6": "gpt-5.5",
+    "claude-opus-4-5-20251101": "gpt-5.5",
+    "claude-opus-4-6": "gpt-5.5",
+    "claude-opus-4-7": "gpt-5.5",
+    "claude-opus-4-7-thinking": "gpt-5.5"
+  }
+}

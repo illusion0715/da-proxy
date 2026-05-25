@@ -1,0 +1,13 @@
+{
+  "name": "da-proxy",
+  "version": "1.0.0",
+  "description": "OpenAI-compatible API proxy for DesignArena (designarena.ai)",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0"
+  }
+}
