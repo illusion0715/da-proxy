@@ -87,6 +87,12 @@ app.post('/v1/chat/completions', async (req, res) => {
         res.setHeader('Cache-Control', 'no-cache');
         res.setHeader('Connection', 'keep-alive');
         res.setHeader('X-Accel-Buffering', 'no');
+        res.flushHeaders();
+
+        const keepAlive = setInterval(() => {
+          res.write(': ping\n\n');
+        }, 10000);
+
         const cid = 'chatcmpl-' + Math.random().toString(36).slice(2, 14);
         const created = Math.floor(Date.now() / 1000);
         res.write('data: ' + JSON.stringify({
@@ -112,6 +118,7 @@ app.post('/v1/chat/completions', async (req, res) => {
         };
         res.write('data: ' + JSON.stringify(finish) + '\n\n');
         res.write('data: [DONE]\n\n');
+        clearInterval(keepAlive);
         return res.end();
       }
 
@@ -176,10 +183,11 @@ app.post('/v1/messages', async (req, res) => {
       res.setHeader('Cache-Control', 'no-cache');
       res.setHeader('Connection', 'keep-alive');
       res.setHeader('X-Accel-Buffering', 'no');
+      res.flushHeaders();
 
       const keepAlive = setInterval(() => {
         res.write(': ping\n\n');
-      }, 15000);
+      }, 10000);
 
       const state = { msgStarted: false, contentIndex: 0 };
       let finalContent = '', finalMeta = null;
@@ -262,10 +270,11 @@ app.post('/v1/responses', async (req, res) => {
       res.setHeader('Cache-Control', 'no-cache');
       res.setHeader('Connection', 'keep-alive');
       res.setHeader('X-Accel-Buffering', 'no');
+      res.flushHeaders();
 
       const keepAlive = setInterval(() => {
         res.write(': ping\n\n');
-      }, 15000);
+      }, 10000);
 
       const _w = (evt, data) => {
         res.write(`event: ${evt}\n`);
