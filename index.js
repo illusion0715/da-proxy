@@ -41,6 +41,15 @@ app.use('/v1', (req, res, next) => {
   return res.status(401).json({ error: { message: 'Invalid API key', type: 'invalid_api_key' } });
 });
 
+// Route aliases: allow requests without /v1 prefix (e.g. POST /responses -> /v1/responses)
+app.use((req, res, next) => {
+  if (!req.path.startsWith('/v1') && req.path !== '/health') {
+    const rewritten = '/v1' + req.path;
+    req.url = rewritten;
+  }
+  next();
+});
+
 // Health
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString(), models: modelRegistry.models.length });
@@ -385,6 +394,7 @@ async function start() {
   app.listen(port, config.host || '0.0.0.0', () => {
     console.log('Listening on http://0.0.0.0:' + port);
     console.log('  GET  /v1/models  |  POST /v1/chat/completions  |  POST /v1/messages  |  POST /v1/responses');
+    console.log('  Also available without /v1 prefix: /responses, /messages, /chat/completions');
     console.log('='.repeat(60));
   });
 }
